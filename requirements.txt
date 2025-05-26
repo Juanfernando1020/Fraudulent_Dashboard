@@ -1,0 +1,53 @@
+# Dependencias principales
+CORE_DEPENDENCIES = [
+    'python>=3.8',  # Versión mínima de Python requerida
+    'pandas>=1.3.0',  # Manipulación de datos
+    'numpy>=1.21.0',  # Operaciones numéricas
+    'plotly>=5.0.0',  # Visualizaciones interactivas
+]
+
+# Dependencias para el dashboard de Streamlit
+STREAMLIT_DEPENDENCIES = [
+    'streamlit>=1.0.0',  # Framework para el dashboard web
+    'streamlit-pandas-profiling>=0.1.3',  # Análisis rápido de datos (opcional)
+]
+
+# Dependencias para Jupyter Notebook
+JUPYTER_DEPENDENCIES = [
+    'jupyter>=1.0.0',  # Jupyter Notebook/Lab
+    'ipywidgets>=7.0.0',  # Widgets interactivos
+    'matplotlib>=3.0.0',  # Visualizaciones
+    'seaborn>=0.11.0',  # Visualizaciones estadísticas
+]
+
+# Dependencias para análisis de datos avanzado
+ANALYSIS_DEPENDENCIES = [
+    'scipy>=1.7.0',  # Análisis estadístico
+    'scikit-learn>=1.0.0',  # Machine Learning (opcional)
+]
+
+# Dependencias para geolocalización (si se usa el mapa)
+GEO_DEPENDENCIES = [
+    'pydeck>=0.7.0',  # Visualización de mapas avanzada
+    'geopy>=2.0.0',  # Geocodificación (opcional)
+]
+
+# Todas las dependencias combinadas
+ALL_DEPENDENCIES = (
+    CORE_DEPENDENCIES +
+    STREAMLIT_DEPENDENCIES +
+    JUPYTER_DEPENDENCIES +
+    ANALYSIS_DEPENDENCIES +
+    GEO_DEPENDENCIES
+)
+
+def get_requirements_list():
+    """Devuelve una lista plana de dependencias para requirements.txt"""
+    return [dep for deps in ALL_DEPENDENCIES for dep in deps if not dep.startswith('#')]
+
+if __name__ == '__main__':
+    print("Generando requirements.txt...")
+    with open('requirements.txt', 'w') as f:
+        f.write("# Archivo generado automáticamente por dependencies.py\n")
+        f.write("\n".join(get_requirements_list()))
+    print("requirements.txt generado correctamente")
